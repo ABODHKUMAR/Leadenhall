@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { useState } from "react";
 import { BrokerStatusData } from "./BrokerStatusData";
-import BarChart from "./components/BarChart.js";
-import BusinessClassAnalysis from "./businessclass/BusinessClassAnalysis.js";
+
+import OpenMarketTable from "./components/table/OpenMarketTable.js";
+import FacilitiesTable from "./components/table/FacilitiesTable.js";
+import CombinedTable from "./components/table/CombinedTable.js";
 import { BusinessClassDate } from "./businessclass/BusinessClassData.js";
+import BusinessClassAnalysis from "./businessclass/BusinessClassAnalysis.js";
+import ChatBot from './components/chatbot/ChatBot';
 
 function App() {
   const openMarketData = BrokerStatusData.filter(
@@ -84,91 +87,15 @@ function App() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-4 col-md-6">
-            <div className="card mt-4">
-              <div className="card-body">
-                <h5 className="card-title text-center">OPEN MARKET</h5>
-                <table className="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Year</th>
-                      <th>BROKER</th>
-                      <th>GWP</th>
-                      <th>[GWP-PGWP]%</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {top10Brokers.map((data, index) => (
-                      <tr key={index}>
-                        <td>{data.Year}</td>
-                        <td>{data["Broker Name"]}</td>
-                        <td>{data.GWP}</td>
-                        <td>{(((data.GWP - data["Planned GWP"]) / data["Planned GWP"]) * 100).toFixed(1)}%</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <BarChart chartData={BrokersData} />
-              </div>
-            </div>
+            <OpenMarketTable data={top10Brokers} chartData={BrokersData} />
           </div>
 
           <div className="col-lg-4 col-md-6">
-            <div className="card mt-4">
-              <div className="card-body">
-                <h5 className="card-title text-center">FACILITIES</h5>
-                <table className="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Year</th>
-                      <th>BROKER</th>
-                      <th>GWP</th>
-                      <th>[GWP-PGWP]%</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {top10FacilitiesBrokers.map((data, index) => (
-                      <tr key={index}>
-                        <td>{data.Year}</td>
-                        <td>{data["Broker Name"]}</td>
-                        <td>{data.GWP}</td>
-                        <td>{(((data.GWP - data["Planned GWP"]) / data["Planned GWP"]) * 100).toFixed(1)}%</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <BarChart chartData={top10FacilitiesData} />
-              </div>
-            </div>
+            <FacilitiesTable data={top10FacilitiesBrokers} chartData={top10FacilitiesData} />
           </div>
-
+          <ChatBot></ChatBot>
           <div className="col-lg-4 col-md-6">
-            <div className="card mt-4">
-              <div className="card-body">
-                <h5 className="card-title text-center">OPEN MARKET AND FACILITIES</h5>
-                <table className="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Year</th>
-                      <th>BROKER</th>
-                      <th>GWP</th>
-                      <th>[GWP-PGWP]%</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {top10CombinedBrokers.map((data, index) => (
-                      <tr key={index}>
-                        <td>{data.Year}</td>
-                        <td>{data["Broker Name"]}</td>
-                        <td>{data.GWP}</td>
-                        <td>{(((data.GWP - data["Planned GWP"]) / data["Planned GWP"]) * 100).toFixed(1)}%</td>
-
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <BarChart chartData={top10CombinedData} />
-              </div>
-            </div>
+            <CombinedTable data={top10CombinedBrokers} chartData={top10CombinedData} />
           </div>
         </div>
       </div>
