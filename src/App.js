@@ -7,7 +7,7 @@ import FacilitiesTable from "./components/table/FacilitiesTable.js";
 import CombinedTable from "./components/table/CombinedTable.js";
 import { BusinessClassDate } from "./businessclass/BusinessClassData.js";
 import BusinessClassAnalysis from "./businessclass/BusinessClassAnalysis.js";
-import ChatBot from './components/chatbot/ChatBot';
+import ReactChatBox from "./components/box/ReactChatBox.js"
 
 function App() {
   const openMarketData = BrokerStatusData.filter(
@@ -93,13 +93,15 @@ function App() {
           <div className="col-lg-4 col-md-6">
             <FacilitiesTable data={top10FacilitiesBrokers} chartData={top10FacilitiesData} />
           </div>
-          <ChatBot></ChatBot>
+       
           <div className="col-lg-4 col-md-6">
             <CombinedTable data={top10CombinedBrokers} chartData={top10CombinedData} />
           </div>
         </div>
       </div>
+      <ReactChatBox/>
       <BusinessClassAnalysis data={BusinessClassDate} />
+      <ReactChatBox/>
     </div>
   );
 }

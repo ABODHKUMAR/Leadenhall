@@ -38,7 +38,7 @@ const openai = new OpenAI({
 // Endpoint to handle natural language queries
 app.post('/query', async (req, res) => {
     let { query } = req.body;
-    query="Only SQL query Need Nothing in double quotes: Give valid Sql Query that can perform task: "+query+"  , My Table name is insurancedata  and column names are Year , BrokerName , GWP , PlannedGWP , MarketType "
+    query="Give valid Sql Query that can perform task from Database , Only and Only Sql perform on Sigle row of Database "+query+"  , My Table name is insurancedata  and column names are Year , BrokerName , GWP , PlannedGWP , MarketType "
     try {
         // Step 1: Convert natural language query to SQL using AI
         const chatCompletion = await openai.chat.completions.create({
@@ -71,7 +71,7 @@ app.post('/query', async (req, res) => {
                     model: "gpt-3.5-turbo",
                     messages: [{ role: "user", content: "Convert to Normal English Like chat bot: " + JSON.stringify(results) }],
                 });
-            
+                
                 // Check if the response from OpenAI contains choices
                 if (convertToNormal && convertToNormal.choices && convertToNormal.choices.length > 0) {
                     // Extract the content from the response
